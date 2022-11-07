@@ -1,0 +1,33 @@
+
+1. Напишите запрос, который подсчитает какое количество ноутбуков представлено в каждом бренде. Отсортируйте данные по убыва
+
+SELECT notebooks_brand.title, COUNT(*) AS count
+FROM public.notebooks_brand, public.notebooks_notebook
+WHERE notebooks_brand.id = notebooks_notebook.brand_id
+GROUP BY notebooks_brand.title
+ORDER BY count DESC
+
+2. Вам необходимо выделить группы ноутбуков по размерам. Для этого размеры предварительно нужно округлить в большую сторону до ближайшего 0 или 5 и затем сгруппировать по одинаковым размерам, подсчитав количество ноутбуков в каждой группе. Отсортируйте данные по размерам.   
+
+SELECT (CASE WHEN CAST (FLOOR(width)AS DECIMAL)%10>5
+  THEN ROUND((CAST (width AS DECIMAL)),-1)
+  WHEN CAST (FLOOR(width)AS DECIMAL)%10=0
+  THEN CAST (FLOOR(width)AS DECIMAL) ELSE
+  ROUND((CAST (width AS DECIMAL)),-1)+5 END
+) as width,
+  (CASE WHEN CAST (FLOOR(depth)AS DECIMAL)%10>5
+  THEN ROUND((CAST (depth AS DECIMAL)),-1)
+  WHEN CAST (FLOOR(depth)AS DECIMAL)%10=0
+  THEN CAST (FLOOR(depth)AS DECIMAL) ELSE
+  ROUND((CAST (depth AS DECIMAL)),-1)+5 END
+) as depth,
+  (CASE WHEN CAST (FLOOR(height)AS DECIMAL)%10>5
+  THEN ROUND((CAST (height AS DECIMAL)),-1)
+  WHEN CAST (FLOOR(height)AS DECIMAL)%10=0
+  THEN CAST (FLOOR(height)AS DECIMAL) ELSE
+  ROUND((CAST (height AS DECIMAL)),-1)+5 END
+) as height, COUNT(*) AS count
+FROM notebooks_notebook
+WHERE width = width AND depth = depth AND height = height
+GROUP BY width, depth, height
+ORDER BY width
