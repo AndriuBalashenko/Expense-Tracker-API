@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "expense-tracker"
+version = "0.1.0"
+description = """
+Реализовать API для учета расходов пользователя.
+"""
+authors = ["Andriu_Balashenko <andriu04081992@gmail.com>"]
+readme = "README.md"
+packages = [{include = "expense_tracker"}]
+
+[tool.poetry.dependencies]
+python = "^3.10.8"
+Django = "4.0.5"
+python-dotenv = ">=0.20.0,<0.21.0"
+djangorestframework = ">=3.13.1,<3.14.0"
+django-debug-toolbar = "3.5.0"
+django-bootstrap-v5 = "1.0.11"
+django-crispy-forms = "1.14.0"
+django-filter = "^22.1"
+psycopg2 = "2.9.3"
+dj-database-url = "^1.0.0"
+psycopg2-binary = "^2.9.3"
+whitenoise = {extras = ["brotli"], version = "^6.2.0"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

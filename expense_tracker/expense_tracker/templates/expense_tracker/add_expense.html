@@ -1,0 +1,30 @@
+{% extends 'expense_tracker/base.html' %}
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+<h1 class="display-6">{{ title }}</h1>
+
+<form method="POST" class="post-form">
+    {% csrf_token %}
+
+    {% if messages %}
+    <p class="messages">{% for message in messages %}</p>
+    <p class="{{ message.tags }}">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message|safe }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <div>
+        <button type="submit" class="btn btn-dark">{{ button }}</button>
+        <a href="{% url 'home' %}" class="btn btn-dark">Назад</a>
+    </div>
+</form>
+
+{% endblock %}

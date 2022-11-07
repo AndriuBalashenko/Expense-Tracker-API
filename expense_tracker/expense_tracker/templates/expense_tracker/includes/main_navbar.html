@@ -1,0 +1,58 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Трекер расходов</a>
+        <ul class="nav">
+            {% if request.user.is_authenticated and not request.user.is_superuser %}
+            <li class="nav-item">
+                <a class="nav-link link-light" aria-current="page" href="{% url 'profile' %}">Профиль</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link link-light dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    Учет расходов
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'add_expense' %}">Добавить</a></li>
+                    <li><a class="dropdown-item" href="{% url 'expense_history' %}">История</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link link-light dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    Статистика
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'today_statistics' %}">Сегодня</a></li>
+                    <li><a class="dropdown-item" href="{% url 'week_statistics' %}">Неделя</a></li>
+                    <li><a class="dropdown-item" href="{% url 'month_statistics' %}">Месяц</a></li>
+                    <li><a class="dropdown-item" href="{% url 'annual_statistics' %}">Год</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="{% url 'categories' %}">Категории</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="{% url 'logout' %}">Выйти</a>
+            </li>
+
+            {% elif request.user.is_superuser %}
+            <li class="nav-item">
+                <a class="nav-link link-light" href="http://127.0.0.1:8000/admin/">Административная панель</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="{% url 'logout' %}">Выйти</a>
+            </li>
+
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link link-light" href="{% url 'sign_up' %}">Регистрация</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link-light" href="{% url 'login' %}">Войти</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

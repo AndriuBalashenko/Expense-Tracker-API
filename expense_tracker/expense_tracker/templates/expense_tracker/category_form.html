@@ -1,0 +1,15 @@
+{% extends 'expense_tracker/base.html' %}
+
+{% block content %}
+<h1 class="display-6">{{ title }}</h1>
+
+{% load crispy_forms_tags %}
+
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-dark">{{ button }}</button>
+    <a href="{% url 'categories' %}" class="btn btn-dark">Назад</a>
+</form>
+{% endblock %}
